@@ -1,0 +1,846 @@
+{
+  "Version": 1,
+  "Hash": "UcZ7FYhdkYnT+/5E8ibQwb+o5DAAJ/rI/IIWDU2HE5E=",
+  "Source": "DATS.Web",
+  "BasePath": "_content/DATS.Web",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "DATS.Web/wwwroot",
+      "Source": "DATS.Web",
+      "ContentRoot": "/root/OtherStuff/DATS/DATS.Web/wwwroot/",
+      "BasePath": "_content/DATS.Web",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "/root/OtherStuff/DATS/DATS.Web/wwwroot/admin.html",
+      "SourceId": "DATS.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/root/OtherStuff/DATS/DATS.Web/wwwroot/",
+      "BasePath": "_content/DATS.Web",
+      "RelativePath": "admin#[.{fingerprint}]?.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "gdfcw27u1f",
+      "Integrity": "LM87KCCnCEiCZpDUBPLxdmFYLw5SrT1f9fSIRGsY9Us=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/admin.html"
+    },
+    {
+      "Identity": "/root/OtherStuff/DATS/DATS.Web/wwwroot/agent.html",
+      "SourceId": "DATS.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/root/OtherStuff/DATS/DATS.Web/wwwroot/",
+      "BasePath": "_content/DATS.Web",
+      "RelativePath": "agent#[.{fingerprint}]?.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "cya9yvf5qy",
+      "Integrity": "TPKcXfB+X5ykYWdeaRfOLybthW9R4J3N8p6kUEb2v9c=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/agent.html"
+    },
+    {
+      "Identity": "/root/OtherStuff/DATS/DATS.Web/wwwroot/css/styles.css",
+      "SourceId": "DATS.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/root/OtherStuff/DATS/DATS.Web/wwwroot/",
+      "BasePath": "_content/DATS.Web",
+      "RelativePath": "css/styles#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "tywimxzx6s",
+      "Integrity": "ZeGb/eVwbvlcba5S2Q4n9Y8PwuWgabRKZ7mcxo2zuFw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/css/styles.css"
+    },
+    {
+      "Identity": "/root/OtherStuff/DATS/DATS.Web/wwwroot/dashboard.html",
+      "SourceId": "DATS.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/root/OtherStuff/DATS/DATS.Web/wwwroot/",
+      "BasePath": "_content/DATS.Web",
+      "RelativePath": "dashboard#[.{fingerprint}]?.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "bqnoxa97a2",
+      "Integrity": "3fhoxmFAqcmqaeCPSPg+XiGmzZngKOveSlp2Keb1B3I=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/dashboard.html"
+    },
+    {
+      "Identity": "/root/OtherStuff/DATS/DATS.Web/wwwroot/index.html",
+      "SourceId": "DATS.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/root/OtherStuff/DATS/DATS.Web/wwwroot/",
+      "BasePath": "_content/DATS.Web",
+      "RelativePath": "index#[.{fingerprint}]?.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "0kt1oqwg60",
+      "Integrity": "4AvJvz/pdNFpGUFVDUoRSZUfUY0boFlU1mvi0B1mPbU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/index.html"
+    },
+    {
+      "Identity": "/root/OtherStuff/DATS/DATS.Web/wwwroot/js/parallax.js",
+      "SourceId": "DATS.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/root/OtherStuff/DATS/DATS.Web/wwwroot/",
+      "BasePath": "_content/DATS.Web",
+      "RelativePath": "js/parallax#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "zqylzpipkr",
+      "Integrity": "KwreM60wcjkoZJDhwIzblfLGpBBgEEe3oFgm1eOyMl8=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/parallax.js"
+    },
+    {
+      "Identity": "/root/OtherStuff/DATS/DATS.Web/wwwroot/media/parallax.png",
+      "SourceId": "DATS.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/root/OtherStuff/DATS/DATS.Web/wwwroot/",
+      "BasePath": "_content/DATS.Web",
+      "RelativePath": "media/parallax#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "bhez0rr53g",
+      "Integrity": "D3AJWa8i8XQefjRFDnyFgpq9Awx8VDYK0eZZ2XZ0Jrk=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/media/parallax.png"
+    },
+    {
+      "Identity": "/root/OtherStuff/DATS/DATS.Web/wwwroot/test.html",
+      "SourceId": "DATS.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/root/OtherStuff/DATS/DATS.Web/wwwroot/",
+      "BasePath": "_content/DATS.Web",
+      "RelativePath": "test#[.{fingerprint}]?.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "n8pru14cn7",
+      "Integrity": "h3ppOUjzUIZxVkJOlwlfCRs5UhULZAqhw0r917CH5XQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/test.html"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "admin.gdfcw27u1f.html",
+      "AssetFile": "/root/OtherStuff/DATS/DATS.Web/wwwroot/admin.html",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "17693"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"LM87KCCnCEiCZpDUBPLxdmFYLw5SrT1f9fSIRGsY9Us=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 02:42:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "gdfcw27u1f"
+        },
+        {
+          "Name": "label",
+          "Value": "admin.html"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-LM87KCCnCEiCZpDUBPLxdmFYLw5SrT1f9fSIRGsY9Us="
+        }
+      ]
+    },
+    {
+      "Route": "admin.html",
+      "AssetFile": "/root/OtherStuff/DATS/DATS.Web/wwwroot/admin.html",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "17693"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"LM87KCCnCEiCZpDUBPLxdmFYLw5SrT1f9fSIRGsY9Us=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 02:42:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-LM87KCCnCEiCZpDUBPLxdmFYLw5SrT1f9fSIRGsY9Us="
+        }
+      ]
+    },
+    {
+      "Route": "agent.cya9yvf5qy.html",
+      "AssetFile": "/root/OtherStuff/DATS/DATS.Web/wwwroot/agent.html",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "20918"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"TPKcXfB+X5ykYWdeaRfOLybthW9R4J3N8p6kUEb2v9c=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 02:42:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "cya9yvf5qy"
+        },
+        {
+          "Name": "label",
+          "Value": "agent.html"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-TPKcXfB+X5ykYWdeaRfOLybthW9R4J3N8p6kUEb2v9c="
+        }
+      ]
+    },
+    {
+      "Route": "agent.html",
+      "AssetFile": "/root/OtherStuff/DATS/DATS.Web/wwwroot/agent.html",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "20918"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"TPKcXfB+X5ykYWdeaRfOLybthW9R4J3N8p6kUEb2v9c=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 02:42:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-TPKcXfB+X5ykYWdeaRfOLybthW9R4J3N8p6kUEb2v9c="
+        }
+      ]
+    },
+    {
+      "Route": "css/styles.css",
+      "AssetFile": "/root/OtherStuff/DATS/DATS.Web/wwwroot/css/styles.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "10009"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ZeGb/eVwbvlcba5S2Q4n9Y8PwuWgabRKZ7mcxo2zuFw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 02:43:30 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ZeGb/eVwbvlcba5S2Q4n9Y8PwuWgabRKZ7mcxo2zuFw="
+        }
+      ]
+    },
+    {
+      "Route": "css/styles.tywimxzx6s.css",
+      "AssetFile": "/root/OtherStuff/DATS/DATS.Web/wwwroot/css/styles.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "10009"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ZeGb/eVwbvlcba5S2Q4n9Y8PwuWgabRKZ7mcxo2zuFw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 02:43:30 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "tywimxzx6s"
+        },
+        {
+          "Name": "label",
+          "Value": "css/styles.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ZeGb/eVwbvlcba5S2Q4n9Y8PwuWgabRKZ7mcxo2zuFw="
+        }
+      ]
+    },
+    {
+      "Route": "dashboard.bqnoxa97a2.html",
+      "AssetFile": "/root/OtherStuff/DATS/DATS.Web/wwwroot/dashboard.html",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "22870"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"3fhoxmFAqcmqaeCPSPg+XiGmzZngKOveSlp2Keb1B3I=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 02:56:15 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "bqnoxa97a2"
+        },
+        {
+          "Name": "label",
+          "Value": "dashboard.html"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-3fhoxmFAqcmqaeCPSPg+XiGmzZngKOveSlp2Keb1B3I="
+        }
+      ]
+    },
+    {
+      "Route": "dashboard.html",
+      "AssetFile": "/root/OtherStuff/DATS/DATS.Web/wwwroot/dashboard.html",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "22870"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"3fhoxmFAqcmqaeCPSPg+XiGmzZngKOveSlp2Keb1B3I=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 02:56:15 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-3fhoxmFAqcmqaeCPSPg+XiGmzZngKOveSlp2Keb1B3I="
+        }
+      ]
+    },
+    {
+      "Route": "index.0kt1oqwg60.html",
+      "AssetFile": "/root/OtherStuff/DATS/DATS.Web/wwwroot/index.html",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "8751"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4AvJvz/pdNFpGUFVDUoRSZUfUY0boFlU1mvi0B1mPbU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 02:42:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "0kt1oqwg60"
+        },
+        {
+          "Name": "label",
+          "Value": "index.html"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-4AvJvz/pdNFpGUFVDUoRSZUfUY0boFlU1mvi0B1mPbU="
+        }
+      ]
+    },
+    {
+      "Route": "index.html",
+      "AssetFile": "/root/OtherStuff/DATS/DATS.Web/wwwroot/index.html",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "8751"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4AvJvz/pdNFpGUFVDUoRSZUfUY0boFlU1mvi0B1mPbU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 02:42:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-4AvJvz/pdNFpGUFVDUoRSZUfUY0boFlU1mvi0B1mPbU="
+        }
+      ]
+    },
+    {
+      "Route": "js/parallax.js",
+      "AssetFile": "/root/OtherStuff/DATS/DATS.Web/wwwroot/js/parallax.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5308"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KwreM60wcjkoZJDhwIzblfLGpBBgEEe3oFgm1eOyMl8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 12 Apr 2025 00:04:08 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-KwreM60wcjkoZJDhwIzblfLGpBBgEEe3oFgm1eOyMl8="
+        }
+      ]
+    },
+    {
+      "Route": "js/parallax.zqylzpipkr.js",
+      "AssetFile": "/root/OtherStuff/DATS/DATS.Web/wwwroot/js/parallax.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5308"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KwreM60wcjkoZJDhwIzblfLGpBBgEEe3oFgm1eOyMl8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 12 Apr 2025 00:04:08 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "zqylzpipkr"
+        },
+        {
+          "Name": "label",
+          "Value": "js/parallax.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-KwreM60wcjkoZJDhwIzblfLGpBBgEEe3oFgm1eOyMl8="
+        }
+      ]
+    },
+    {
+      "Route": "media/parallax.bhez0rr53g.png",
+      "AssetFile": "/root/OtherStuff/DATS/DATS.Web/wwwroot/media/parallax.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2710891"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"D3AJWa8i8XQefjRFDnyFgpq9Awx8VDYK0eZZ2XZ0Jrk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 12 Apr 2025 00:03:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "bhez0rr53g"
+        },
+        {
+          "Name": "label",
+          "Value": "media/parallax.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-D3AJWa8i8XQefjRFDnyFgpq9Awx8VDYK0eZZ2XZ0Jrk="
+        }
+      ]
+    },
+    {
+      "Route": "media/parallax.png",
+      "AssetFile": "/root/OtherStuff/DATS/DATS.Web/wwwroot/media/parallax.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2710891"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"D3AJWa8i8XQefjRFDnyFgpq9Awx8VDYK0eZZ2XZ0Jrk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 12 Apr 2025 00:03:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-D3AJWa8i8XQefjRFDnyFgpq9Awx8VDYK0eZZ2XZ0Jrk="
+        }
+      ]
+    },
+    {
+      "Route": "test.html",
+      "AssetFile": "/root/OtherStuff/DATS/DATS.Web/wwwroot/test.html",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "29999"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"h3ppOUjzUIZxVkJOlwlfCRs5UhULZAqhw0r917CH5XQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 02:42:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-h3ppOUjzUIZxVkJOlwlfCRs5UhULZAqhw0r917CH5XQ="
+        }
+      ]
+    },
+    {
+      "Route": "test.n8pru14cn7.html",
+      "AssetFile": "/root/OtherStuff/DATS/DATS.Web/wwwroot/test.html",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "29999"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"h3ppOUjzUIZxVkJOlwlfCRs5UhULZAqhw0r917CH5XQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 02:42:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "n8pru14cn7"
+        },
+        {
+          "Name": "label",
+          "Value": "test.html"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-h3ppOUjzUIZxVkJOlwlfCRs5UhULZAqhw0r917CH5XQ="
+        }
+      ]
+    }
+  ]
+}

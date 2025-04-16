@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - GATS</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <a href="/dashboard">GATS</a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/dashboard" class="active">My Tickets</a></li>
+                    <li><a href="/agent" id="agentLink" style="display: none;">Agent View</a></li>
+                    <li><a href="/admin" id="adminLink" style="display: none;">Admin Panel</a></li>
+                    <li><a href="/auth/logout">Logout</a></li>
+                </ul>
+            </nav>
+            <div class="user-info">
+                <span id="userName">Loading...</span> 
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="card">
+                <h2 class="card-title">Create New Ticket</h2>
+                <form id="createTicketForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="ticketTitle">Title:</label>
+                        <input type="text" id="ticketTitle" value="Time Transfer" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ticketDescription">Description:</label>
+                        <textarea id="ticketDescription" required>Server Transfering Time From:
+What jobs do you need transferred:</textarea>
+                    </div>
+                    <small style="color: #aaa; display: block; margin-top: 5px;">
+                        <strong>Playtime Transfer Info:</strong> Please list roles alphabetically, if you fail to do so your ticket may be closed. We only transfer <em>role playtime</em> (not overall playtime) from English servers using Wizden or Delta codebases. Do not request roles that are already unlocked by default.
+                    </small>
+                    
+                    <div class="form-group">
+                        <label for="createTicketFile">Attachments:</label>
+                        <input type="file" id="createTicketFile" accept="image/*" multiple>
+                        <small>You can select multiple files</small>
+                    </div>
+                    <button type="submit" class="btn btn-success">Create Ticket</button>
+                </form>
+                <div id="createResult"></div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title">My Tickets</h2>
+                <div id="ticketList">Loading tickets...</div>
+            </div>
+        </div>
+
+        <!-- Ticket Details Modal -->
+        <div id="ticketModal" class="modal">
+            <span class="modal-close">&times;</span>
+            <div class="container">
+                <div class="card" id="ticketDetails">
+                    <h2 class="card-title">Ticket Details</h2>
+                    <div id="ticketDetailsContent">Loading...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Image Preview Modal -->
+        <div id="imageModal" class="modal">
+            <span class="modal-close">&times;</span>
+            <img class="modal-content" id="modalImage">
+        </div>
+    </main>
+
+    <script src="/js/parallax.js"></script>
+    <script>
+
+        const baseUrl = window.location.origin;
+        let userRoleCache = null;
+        let currentUserName = 'User';
+
+
+        document.addEventListener('DOMContentLoaded', async function () {
+
+            await checkUserRole();
+
+
+            await listTickets();
+
+
+            document.getElementById('createTicketForm').addEventListener('submit', createTicket);
+
+
+            document.querySelectorAll('.modal-close').forEach(closeBtn => {
+                closeBtn.addEventListener('click', function () {
+                    document.querySelectorAll('.modal').forEach(modal => {
+                        modal.style.display = 'none';
+                    });
+                });
+            });
+        });
+
+
+        async function checkUserRole() {
+            try {
+                const response = await fetch(`${baseUrl}/api/account/role`, {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    const roleData = await response.json();
+                    userRoleCache = roleData;
+
+
+                    const userResponse = await fetch(`${baseUrl}/api/account/current`, {
+                        method: 'GET',
+                        credentials: 'include'
+                    });
+
+                    if (userResponse.ok) {
+                        const userData = await userResponse.json();
+                        currentUserName = userData.name || userData.email || 'User';
+                        document.getElementById('userName').textContent = currentUserName;
+                    }
+
+
+                    if (roleData.isAgentOrAdmin) {
+                        document.getElementById('agentLink').style.display = 'block';
+
+                        if (roleData.role === 'Admin') {
+                            document.getElementById('adminLink').style.display = 'block';
+                        }
+                    }
+                } else {
+
+                    window.location.href = '/auth/login';
+                }
+            } catch (error) {
+                console.error('Error checking user role:', error);
+
+                window.location.href = '/auth/login';
+            }
+        }
+
+
+        async function listTickets() {
+            try {
+                const response = await fetch(`${baseUrl}/api/tickets/my`, {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    const tickets = await response.json();
+                    let html = '';
+
+                    if (tickets.length === 0) {
+                        html = '<p>You have no tickets yet. Create one to get started!</p>';
+                    } else {
+                        html = '<table>';
+                        html += '<thead><tr><th>Title</th><th>Status</th><th>Created</th><th>Actions</th></tr></thead>';
+                        html += '<tbody>';
+
+                        tickets.forEach(ticket => {
+                            const statusClass = `ticket-row-${ticket.status.toString().toLowerCase()}`;
+                            html += `
+                                <tr class="${statusClass}">
+                                    <td>${escapeHtml(ticket.title)}</td>
+                                    <td><span class="status-badge status-${ticket.status.toString().toLowerCase()}">${escapeHtml(ticket.status)}</span></td>
+                                    <td>${new Date(ticket.createdAt).toLocaleString()}</td>
+                                    <td>
+                                        <button class="btn" onclick="viewTicketDetails('${ticket.id}')">View</button>
+                                    </td>
+                                </tr>
+                            `;
+                        });
+
+                        html += '</tbody></table>';
+                    }
+
+                    document.getElementById('ticketList').innerHTML = html;
+                } else {
+                    const error = await response.text();
+                    document.getElementById('ticketList').innerHTML =
+                        `<p class="alert alert-danger">Error: ${response.status} ${response.statusText}</p>
+                         <pre>${escapeHtml(error)}</pre>`;
+                }
+            } catch (error) {
+                document.getElementById('ticketList').innerHTML =
+                    `<p class="alert alert-danger">Error: ${escapeHtml(error.message)}</p>`;
+            }
+        }
+
+
+        async function createTicket(event) {
+            event.preventDefault();
+
+            const title = document.getElementById('ticketTitle').value;
+            const description = document.getElementById('ticketDescription').value;
+            const fileInput = document.getElementById('createTicketFile');
+
+            if (!title || !description) {
+                document.getElementById('createResult').innerHTML = '<p class="alert alert-danger">Title and description are required</p>';
+                return;
+            }
+
+            try {
+
+                const response = await fetch(`${baseUrl}/api/tickets`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ title, description }),
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    const ticket = await response.json();
+
+
+                    if (fileInput.files && fileInput.files.length > 0) {
+                        document.getElementById('createResult').innerHTML =
+                            `<p class="alert alert-success">Ticket created successfully! Uploading attachments...</p>`;
+
+
+                        for (let i = 0; i < fileInput.files.length; i++) {
+                            const formData = new FormData();
+                            formData.append('file', fileInput.files[i]);
+
+                            await fetch(`${baseUrl}/api/tickets/${ticket.id}/attachments`, {
+                                method: 'POST',
+                                body: formData,
+                                credentials: 'include'
+                            });
+                        }
+
+                        document.getElementById('createResult').innerHTML =
+                            `<p class="alert alert-success">Ticket created successfully with ${fileInput.files.length} attachment(s)!</p>`;
+                    } else {
+                        document.getElementById('createResult').innerHTML =
+                            `<p class="alert alert-success">Ticket created successfully!</p>`;
+                    }
+
+
+                    document.getElementById('ticketTitle').value = 'Time Transfer';
+                    document.getElementById('ticketDescription').value = 'Server Transfering Time From:\nWhat jobs do you need transferred:';
+                    document.getElementById('createTicketFile').value = '';
+
+
+                    listTickets();
+                } else {
+                    const error = await response.text();
+                    document.getElementById('createResult').innerHTML =
+                        `<p class="alert alert-danger">Error: ${response.status} ${response.statusText}</p>
+                         <pre>${escapeHtml(error)}</pre>`;
+                }
+            } catch (error) {
+                document.getElementById('createResult').innerHTML =
+                    `<p class="alert alert-danger">Error: ${escapeHtml(error.message)}</p>`;
+            }
+        }
+
+
+        async function viewTicketDetails(ticketId) {
+            try {
+                const response = await fetch(`${baseUrl}/api/tickets/${ticketId}`, {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    const ticket = await response.json();
+                    
+
+                    const reporterDisplay = escapeHtml(ticket.reporterName || ticket.reporterEmail || 'Unknown');
+                    const assigneeDisplay = ticket.assigneeName || ticket.assigneeEmail ? escapeHtml(ticket.assigneeName || ticket.assigneeEmail) : '';
+
+                    let html = `
+                        <div class="ticket-details">
+                            <div class="ticket-details-header">
+                                <h3 class="ticket-details-title">${escapeHtml(ticket.title)}</h3>
+                                <span class="status-badge status-${ticket.status.toString().toLowerCase()}">${escapeHtml(ticket.status)}</span>
+                            </div>
+                            
+                            <div class="ticket-details-meta">
+                                <span>Created: ${new Date(ticket.createdAt).toLocaleString()}</span>
+                                ${ticket.updatedAt ? `<span>Updated: ${new Date(ticket.updatedAt).toLocaleString()}</span>` : ''}
+                                <span>Reporter: ${reporterDisplay}</span>
+                                ${assigneeDisplay ? `<span>Assignee: ${assigneeDisplay}</span>` : ''}
+                            </div>
+                            
+                            <div class="ticket-details-description">
+                                ${ticket.description ? escapeHtml(ticket.description).replace(/\n/g, '<br>') : 'No description'}
+                            </div>
+                            
+                            <!-- Attachments Section -->
+                            <div class="attachments-section">
+                                <h4>Attachments</h4>
+                                ${renderAttachments(ticket.imageAttachments)}
+                                
+                                <!-- Upload Form -->
+                                <form id="uploadForm" style="margin-top: 1rem;">
+                                    <div class="form-group">
+                                        <label for="fileInput">Add Attachment:</label>
+                                        <input type="file" id="fileInput" accept="image/*">
+                                    </div>
+                                    <button type="button" class="btn" onclick="uploadAttachment('${ticket.id}')">Upload</button>
+                                </form>
+                                <div id="uploadResult"></div>
+                            </div>
+                            
+                            <!-- Replies Section -->
+                            <div class="ticket-replies">
+                                <h4>Replies</h4>
+                                <div id="ticketReplies">Loading replies...</div>
+                                
+                                <!-- Reply Form -->
+                                <div class="form-group" style="margin-top: 1rem;">
+                                    <label for="replyContent">Add Reply:</label>
+                                    <textarea id="replyContent" rows="3" placeholder="Type your reply here..."></textarea>
+                                    <div style="margin-top: 0.5rem;">
+                                        <button class="btn" onclick="addReply('${ticket.id}', false)">Add Reply</button>
+                                        ${userRoleCache && userRoleCache.isAgentOrAdmin ?
+                            `<button class="btn btn-warning" onclick="addReply('${ticket.id}', true)">Add Internal Note</button>` :
+                            ''}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    document.getElementById('ticketDetailsContent').innerHTML = html;
+                    document.getElementById('ticketModal').style.display = 'flex';
+
+
+                    loadReplies(ticketId);
+                } else {
+                    const error = await response.text();
+                    alert(`Error loading ticket: ${response.status} ${response.statusText}\n${escapeHtml(error)}`);
+                }
+            } catch (error) {
+                alert(`Error loading ticket: ${escapeHtml(error.message)}`);
+            }
+        }
+
+
+        function renderAttachments(attachments) {
+            if (!attachments || attachments.length === 0) {
+                return '<p>No attachments</p>';
+            }
+
+            let html = '<div class="attachment-list">';
+
+            attachments.forEach(attachment => {
+                html += `
+                    <div class="attachment-item">
+                        <img src="${escapeHtml(attachment.url)}" class="attachment-preview" onclick="openImageInModal('${escapeHtml(attachment.url)}')">
+                        <div class="attachment-info">
+                            <div class="attachment-name">${escapeHtml(attachment.originalFileName)}</div>
+                            <div class="attachment-meta">
+                                <span>${formatFileSize(attachment.fileSize)}</span>
+                                <span>${new Date(attachment.uploadedAt).toLocaleDateString()}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+            return html;
+        }
+
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+
+        function openImageInModal(imageUrl) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.style.display = 'flex';
+            modalImg.src = imageUrl;
+        }
+
+
+        async function uploadAttachment(ticketId) {
+            const fileInput = document.getElementById('fileInput');
+
+            if (!fileInput.files || fileInput.files.length === 0) {
+                document.getElementById('uploadResult').innerHTML = '<p class="alert alert-danger">Please select a file</p>';
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            try {
+                const response = await fetch(`${baseUrl}/api/tickets/${ticketId}/attachments`, {
+                    method: 'POST',
+                    body: formData,
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    document.getElementById('uploadResult').innerHTML = '<p class="alert alert-success">File uploaded successfully!</p>';
+                    fileInput.value = '';
+
+
+                    viewTicketDetails(ticketId);
+                } else {
+                    const error = await response.text();
+                    document.getElementById('uploadResult').innerHTML =
+                        `<p class="alert alert-danger">Error: ${response.status} ${response.statusText}</p>
+                         <pre>${escapeHtml(error)}</pre>`;
+                }
+            } catch (error) {
+                document.getElementById('uploadResult').innerHTML =
+                    `<p class="alert alert-danger">Error: ${escapeHtml(error.message)}</p>`;
+            }
+        }
+
+
+        async function loadReplies(ticketId) {
+            try {
+                const response = await fetch(`${baseUrl}/api/tickets/${ticketId}/replies`, {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    const replies = await response.json();
+                    let html = '';
+
+                    if (replies.length === 0) {
+                        html = '<p>No replies yet.</p>';
+                    } else {
+                        replies.forEach(reply => {
+
+                            const authorDisplay = escapeHtml(reply.authorName || reply.authorEmail || 'Unknown');
+                            html += `
+                                <div class="reply-item ${reply.isInternal ? 'internal-note' : ''}">
+                                    <div class="reply-header">
+                                        <span class="reply-author">
+                                            ${authorDisplay}
+                                            ${reply.isInternal ? '<span class="internal-note-badge">Internal Note</span>' : ''}
+                                        </span>
+                                        <span class="reply-date">${new Date(reply.createdAt).toLocaleString()}</span>
+                                    </div>
+                                    <div class="reply-content">${escapeHtml(reply.content).replace(/\n/g, '<br>')}</div>
+                                </div>
+                            `;
+                        });
+                    }
+
+                    document.getElementById('ticketReplies').innerHTML = html;
+                } else {
+                    const error = await response.text();
+                    document.getElementById('ticketReplies').innerHTML =
+                        `<p class="alert alert-danger">Error: ${response.status} ${response.statusText}</p>
+                         <pre>${escapeHtml(error)}</pre>`;
+                }
+            } catch (error) {
+                document.getElementById('ticketReplies').innerHTML =
+                    `<p class="alert alert-danger">Error: ${escapeHtml(error.message)}</p>`;
+            }
+        }
+
+
+        async function addReply(ticketId, isInternal) {
+            const content = document.getElementById('replyContent').value;
+
+            if (!content) {
+                alert('Reply content is required');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${baseUrl}/api/tickets/${ticketId}/replies`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        content: content,
+                        isInternal: isInternal
+                    }),
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+
+                    document.getElementById('replyContent').value = '';
+
+
+                    loadReplies(ticketId);
+                } else {
+                    const error = await response.text();
+                    alert(`Error adding reply: ${response.status} ${response.statusText}\n${escapeHtml(error)}`);
+                }
+            } catch (error) {
+                alert(`Error adding reply: ${escapeHtml(error.message)}`);
+            }
+        }
+
+
+        function escapeHtml(unsafe) {
+            if (typeof unsafe !== 'string') return unsafe;
+            return unsafe
+                 .replace(/&/g, "&amp;")
+                 .replace(/</g, "<")
+                 .replace(/>/g, ">")
+                 .replace(/"/g, "\"")
+                 .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+
+</html>

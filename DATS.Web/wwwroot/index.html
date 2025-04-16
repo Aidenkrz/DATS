@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goob's Awesome Ticket System</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <a href="/">GATS</a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/auth/login">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container splash-container">
+            <h1 class="splash-title">Goob's Awesome Ticket System</h1>
+            <p class="splash-subtitle">Now with 100% more tickets!</p>
+
+            <div class="splash-actions">
+                <a href="/auth/login" class="btn btn-success">Login to Get Started</a>
+            </div>
+        </div>
+        <svg>
+            <filter id="chromatic">
+                <feColorMatrix type="matrix" values="
+                1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 1 0" />
+                <feOffset in="SourceGraphic" dx="-0.8" dy="0" result="red" />
+                <feOffset in="SourceGraphic" dx="0.8" dy="0" result="blue" />
+                <feBlend in="red" in2="SourceGraphic" mode="screen" />
+                <feBlend in="blue" in2="SourceGraphic" mode="screen" />
+            </filter>
+        </svg>
+        <div class="durk-container">
+            <canvas class="durk-container__canvas"></canvas>
+        </div>
+    </main>
+    <script>
+        (() => {
+            class WaveTextParticles {
+                constructor(container) {
+                    this.canvas = container.querySelector('canvas');
+                    this.ctx = this.canvas.getContext('2d');
+                    this.particles = [];
+                    this.mouse = { x: -1000, y: -1000 };
+                    this.text = 'POWERED BY DURK';
+                    this.spring = 0.2;
+                    this.friction = 0.89;
+                    this.phase = 0;
+                    this.wavePhase = 0;
+                    this.init();
+                }
+
+                async init() {
+                    this.setupCanvas();
+                    await this.createDenseTextParticles();
+                    this.initEvents();
+                    this.animate();
+
+                    new ResizeObserver(() => this.setupCanvas()).observe(this.canvas);
+                    new IntersectionObserver(entries => {
+                        this.canvas.style.opacity = entries[0].intersectionRatio;
+                    }).observe(this.canvas);
+                    setTimeout(() => this.canvas.style.opacity = 1, 50);
+                }
+
+                setupCanvas() {
+                    const dpr = Math.min(window.devicePixelRatio, 2);
+                    const rect = this.canvas.getBoundingClientRect();
+                    this.canvas.width = rect.width * dpr;
+                    this.canvas.height = rect.height * dpr;
+                    this.ctx.scale(dpr, dpr);
+                }
+
+                async createDenseTextParticles() {
+                    const textCanvas = document.createElement('canvas');
+                    const textCtx = textCanvas.getContext('2d');
+
+                    textCtx.font = "bold 42px Arial";
+                    const textWidth = textCtx.measureText(this.text).width;
+                    textCanvas.width = textWidth + 60;
+                    textCanvas.height = 90;
+
+                    textCtx.font = "bold 42px Arial";
+                    textCtx.textBaseline = 'middle';
+                    textCtx.textAlign = 'center';
+                    textCtx.fillText(this.text, textCanvas.width / 2, textCanvas.height / 2);
+
+                    const imageData = textCtx.getImageData(0, 0, textCanvas.width, textCanvas.height);
+                    const particleSpacing = 2;
+
+                    for (let y = 0; y < textCanvas.height; y += particleSpacing) {
+                        for (let x = 0; x < textCanvas.width; x += particleSpacing) {
+                            const alpha = imageData.data[(y * textCanvas.width + x) * 4 + 3];
+                            if (alpha > 64) {
+                                this.particles.push({
+                                    originalHomeX: x - textCanvas.width / 2 + this.canvas.width / 2,
+                                    originalHomeY: y - textCanvas.height / 2 + this.canvas.height / 2,
+                                    homeX: 0,
+                                    homeY: 0,
+                                    x: 0,
+                                    y: 0,
+                                    vx: 0,
+                                    vy: 0,
+                                    baseHue: (x / textCanvas.width) * 360,
+                                    waveOffset: 0
+                                });
+                            }
+                        }
+                    }
+
+
+                    this.particles.forEach(p => {
+                        p.x = p.originalHomeX;
+                        p.y = p.originalHomeY;
+                    });
+                }
+
+                updateWaveEffect() {
+                    this.wavePhase += 0.02;
+                    this.particles.forEach(p => {
+
+                        p.homeY = p.originalHomeY + Math.sin(p.originalHomeX * 0.03 + this.wavePhase + p.waveOffset) * 4;
+                        p.homeX = p.originalHomeX + Math.cos(p.originalHomeY * 0.02 + this.wavePhase) * 2;
+                    });
+                }
+
+                updateParticles() {
+                    this.phase = (this.phase + 0.4) % 360;
+                    this.updateWaveEffect();
+
+                    this.particles.forEach(p => {
+                        const dx = p.homeX - p.x;
+                        const dy = p.homeY - p.y;
+
+
+                        const mouseDx = p.x - this.mouse.x;
+                        const mouseDy = p.y - this.mouse.y;
+                        const mouseDist = Math.sqrt(mouseDx ** 2 + mouseDy ** 2);
+                        const maxDist = 100;
+
+                        if (mouseDist < maxDist) {
+                            const force = (maxDist - mouseDist) / maxDist;
+                            p.vx += (mouseDx / mouseDist) * force * 2.5;
+                            p.vy += (mouseDy / mouseDist) * force * 2.5;
+                        }
+
+
+                        p.vx += dx * this.spring;
+                        p.vy += dy * this.spring * (1 + Math.sin(this.wavePhase) * 0.3);
+
+                        p.vx *= this.friction;
+                        p.vy *= this.friction;
+
+                        p.x += p.vx;
+                        p.y += p.vy;
+                    });
+                }
+
+                draw() {
+                    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+                    this.particles.forEach(p => {
+                        const velocity = Math.sqrt(p.vx ** 2 + p.vy ** 2);
+                        const currentHue = (p.baseHue + this.phase) % 360;
+
+                        this.ctx.beginPath();
+                        this.ctx.arc(p.x, p.y,
+                            Math.max(0.5, 0.8 + velocity / 8),
+                            0, Math.PI * 2
+                        );
+
+                        this.ctx.fillStyle = `hsl(
+                ${(currentHue + velocity * 4 + Math.sin(this.wavePhase) * 20) % 360}, 
+                ${80 - velocity * 3}%, 
+                ${Math.min(70 + velocity * 8, 75)}%
+              )`;
+                        this.ctx.fill();
+                    });
+                }
+
+                animate = () => {
+                    this.updateParticles();
+                    this.draw();
+                    requestAnimationFrame(this.animate);
+                }
+
+                initEvents() {
+                    const updateMouse = (e) => {
+                        const rect = this.canvas.getBoundingClientRect();
+                        this.mouse.x = (e.clientX - rect.left) * (this.canvas.width / rect.width);
+                        this.mouse.y = (e.clientY - rect.top) * (this.canvas.height / rect.height);
+                    };
+                    this.canvas.addEventListener('mousemove', updateMouse);
+                    this.canvas.addEventListener('mouseleave', () => {
+                        this.mouse.x = -1000;
+                        this.mouse.y = -1000;
+                    });
+                }
+            }
+
+
+            const container = document.querySelector('.durk-container');
+            new WaveTextParticles(container);
+        })();
+    </script>
+    <script src="/js/parallax.js"></script>
+</body>
+
+</html>
