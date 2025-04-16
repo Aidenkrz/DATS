@@ -63,7 +63,8 @@ builder.Services.AddAuthentication(options =>
     options.ClaimActions.Clear(); 
 
     options.Scope.Add("openid");
-    options.Scope.Add("profile"); 
+    options.Scope.Add("profile");
+    options.Scope.Add("email"); 
 
     options.Events = new OpenIdConnectEvents
     {
@@ -74,7 +75,7 @@ builder.Services.AddAuthentication(options =>
             var claims = context.Principal?.Claims.ToList() ?? new List<Claim>();
 
             logger.LogInformation("Claims present in OnTokenValidated:");
-            foreach (var claim in claims) { logger.LogInformation("  Claim: {Type} = {Value}", claim.Type, claim.Value); }
+            foreach (var claim in claims) { logger.LogDebug("  Claim: {Type} = {Value}", claim.Type, claim.Value); }
 
             var subjectId = claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value; 
             var issuer = claims.FirstOrDefault(c => c.Type == "iss")?.Value ?? context.Options.Authority ?? "default-issuer";
