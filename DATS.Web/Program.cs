@@ -74,7 +74,7 @@ builder.Services.AddAuthentication(options =>
             var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Program>>();
             var claims = context.Principal?.Claims.ToList() ?? new List<Claim>();
 
-            logger.LogInformation("Claims present in OnTokenValidated:");
+            logger.LogDebug("Claims present in OnTokenValidated:");
             foreach (var claim in claims) { logger.LogDebug("  Claim: {Type} = {Value}", claim.Type, claim.Value); }
 
             var subjectId = claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value; 
