@@ -10,9 +10,8 @@ using DATS.Web.Services;
 using DATS.Web.Middleware;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Net.Http.Headers;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.IdentityModel.Tokens;
-using System.Text.Json;
+using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +30,14 @@ builder.Services.AddHttpClient<IWebhookService, DiscordWebhookService>();
 builder.Services.AddHttpClient(); 
 
 builder.Services.AddHostedService<ImageCleanupService>();
+
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders =
+        ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    options.KnownProxies.Clear();
+    options.KnownNetworks.Clear();
+});
 
 builder.Services.AddAuthentication(options =>
 {
@@ -216,6 +223,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseForwardedHeaders();
 
 app.UseAuthentication();
 
