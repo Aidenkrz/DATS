@@ -31,6 +31,13 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddHostedService<ImageCleanupService>();
 
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.CheckConsentNeeded = context => false;
+    options.MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.None;
+    options.Secure = CookieSecurePolicy.Always;
+});
+
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
     options.ForwardedHeaders =
@@ -44,10 +51,22 @@ builder.Services.AddAuthentication(options =>
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
 })
-.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme) 
+.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options => {
+    options.Cookie.HttpOnly = true;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+    options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None;
+})
 .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
 {
-    options.Authority = builder.Configuration["Oidc:Authority"]; 
+    options.CorrelationCookie.HttpOnly = true;
+    options.CorrelationCookie.SecurePolicy = CookieSecurePolicy.Always;
+    options.CorrelationCookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None;
+
+    options.NonceCookie.HttpOnly = true;
+    options.NonceCookie.SecurePolicy = CookieSecurePolicy.Always;
+    options.NonceCookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None;
+
+    options.Authority = builder.Configuration["Oidc:Authority"];
     options.ClientId = builder.Configuration["Oidc:ClientId"];
     options.ClientSecret = builder.Configuration["Oidc:ClientSecret"];
     options.ResponseType = OpenIdConnectResponseType.Code;
@@ -226,6 +245,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseForwardedHeaders();
+
+app.UseCookiePolicy();
 
 app.UseAuthentication();
 

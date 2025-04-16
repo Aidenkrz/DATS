@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DATS.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+999b160388427e23c943753bd7265d4db41c9507")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c29a05335beeea106c946ab31533be5e605a6318")]
 [assembly: System.Reflection.AssemblyProductAttribute("DATS.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DATS.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
